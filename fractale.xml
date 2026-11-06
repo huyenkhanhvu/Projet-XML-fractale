@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fractale xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema.xsd">
+
+    <!-- Conteneur qui regroupe toute les formes géométrique -->
+    <formes>
+
+        <forme id="triangle">
+
+            <path d="M 0 1 L -0.866025404 -0.5 0.866025404 -0.5 z"/>
+
+        </forme>
+
+        <forme id="square">
+
+            <path d="M 0.707106781187 0.707106781187 L -0.707106781187 0.707106781187 -0.707106781187 -0.707106781187 0.707106781187 -0.707106781187 z"/>
+
+        </forme>
+
+        <forme id="pentagon">
+
+            <path d="M 0 1 L -0.951056516295 0.309016994375 -0.587785252292 -0.809016994375 0.587785252292 -0.809016994375 0.951056516295 0.309016994375 z"/>
+
+        </forme>
+
+        <forme id="isosceles_triangle">
+
+            <path d="M -1 0 L 0 1 1 0 z"/>
+
+        </forme>
+
+
+        <forme id="hexagon">
+
+            <path d="M 0 1 L 0.866025 0.5 0.866025 -0.5 0 -1 -0.866025 -0.5 -0.866025 0.5 z"/>
+
+        </forme>
+
+    </formes>
+
+
+    <!-- Conteneur qui regroupe toute les transformations pour générer les fractales-->
+    <transformations>
+
+        <ensemble id="sierpinski_triangle">
+
+            <transformation>
+
+                <scale sx="0.5" sy="0.5"/>
+                <translate tx="0" ty="0.5"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.5" sy="0.5"/>
+                <translate tx="-0.4330127" ty="-0.25"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.5" sy="0.5"/>
+                <translate tx="0.4330127" ty="-0.25"/>
+
+            </transformation>
+
+        </ensemble>
+
+
+        <ensemble id="sierpinski_carpet">
+
+            <transformation>
+
+                <scale sx="0.3333333" sy="0.3333333"/>
+                <translate tx="-0.4714045" ty="0.4714045"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.3333333" sy="0.3333333"/>
+                <translate tx="0" ty="0.4714045"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.3333333" sy="0.3333333"/>
+                <translate tx="0.4714045" ty="0.4714045"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.3333333" sy="0.3333333"/>
+                <translate tx="-0.4714045" ty="0"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.3333333" sy="0.3333333"/>
+                <translate tx="0.4714045" ty="0"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.3333333" sy="0.3333333"/>
+                <translate tx="-0.4714045" ty="-0.4714045"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.3333333" sy="0.3333333"/>
+                <translate tx="0" ty="-0.4714045"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.3333333" sy="0.3333333"/>
+                <translate tx="0.4714045" ty="-0.4714045"/>
+
+            </transformation>
+
+        </ensemble>
+
+
+        <ensemble id="sierpinski_pentagon">
+
+            <transformation>
+
+                <scale sx="0.381966" sy="0.381966"/>
+                <translate tx="0" ty="0.6180339"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.381966" sy="0.381966"/>
+                <translate tx="0.5877852" ty="0.190983"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.381966" sy="0.381966"/>
+                <translate tx="-0.5877852" ty="0.190983"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.381966" sy="0.381966"/>
+                <translate tx="0.3632712" ty="-0.5"/>
+
+            </transformation>
+
+            <transformation>
+
+                <scale sx="0.381966" sy="0.381966"/>
+                <translate tx="-0.3632712" ty="-0.5"/>
+
+            </transformation>
+
+        </ensemble>
+
+
+        <ensemble id="spiral_triangle">
+
+            <transformation>
+
+                <scale sx="1" sy="1"/>
+
+            </transformation>
+
+            <transformation>
+
+                <rotate angle="20"/>
+                <scale sx="0.6527036" sy="0.6527036"/>
+
+            </transformation>
+
+        </ensemble>
+
+
+        <ensemble id="spiral_square">
+
+            <transformation>
+
+                <scale sx="1" sy="1"/>
+
+            </transformation>
+
+            <transformation>
+
+                <rotate angle="20"/>
+                <scale sx="0.780206" sy="0.780206"/>
+
+            </transformation>
+
+        </ensemble>
+
+
+        <ensemble id="spiral_pentagon">
+
+            <transformation>
+
+                <scale sx="1" sy="1"/>
+
+            </transformation>
+
+            <transformation>
+
+                <rotate angle="20"/>
+                <scale sx="0.8416199" sy="0.8416199"/>
+
+            </transformation>
+
+        </ensemble>
+
+
+        <ensemble id="flocon">
+
+            <transformation>
+                <scale sx="0.33333" sy="0.33333"/>
+                <translate tx="0" ty="0"/>
+            </transformation>
+
+            <transformation>
+                <scale sx="0.33333" sy="0.33333"/>
+                <translate tx="0" ty="0.66667"/>
+            </transformation>
+
+            <transformation>
+                <scale sx="0.33333" sy="0.33333"/>
+                <translate tx="0.57735" ty="0.33333"/>
+            </transformation>
+
+            <transformation>
+                <scale sx="0.33333" sy="0.33333"/>
+                <translate tx="0.57735" ty="-0.33333"/>
+            </transformation>
+
+            <transformation>
+                <scale sx="0.33333" sy="0.33333"/>
+                <translate tx="0" ty="-0.66667"/>
+            </transformation>
+
+            <transformation>
+                <scale sx="0.33333" sy="0.33333"/>
+                <translate tx="-0.57735" ty="-0.33333"/>
+            </transformation>
+
+            <transformation>
+                <scale sx="0.33333" sy="0.33333"/>
+                <translate tx="-0.57735" ty="0.33333"/>
+            </transformation>
+
+        </ensemble>
+
+        <ensemble id="pi">
+
+            <transformation>
+                <translate tx="-0.4" ty="-0.4"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="-0.2" ty="-0.4"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="0" ty="-0.4"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="0.2" ty="-0.4"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="0.4" ty="-0.4"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="-0.2" ty="-0.2"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="-0.2" ty="0"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="-0.2" ty="0.2"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+            
+            <transformation>
+                <translate tx="-0.4" ty="0.4"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="-0.2" ty="0.4"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="0.2" ty="-0.2"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="0.2" ty="0"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="0.2" ty="0.2"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+            <transformation>
+                <translate tx="0.2" ty="0.4"/>
+                <scale sx="0.2" sy="0.2"/>
+            </transformation>
+
+        </ensemble>
+
+    </transformations>
+
+
+    <!-- Conteneur qui regroupe toute les combinaison des transformations et des formes-->
+    <systems>
+
+        <system id="sys_sierpinski">
+
+            <base ref="triangle"/>
+            <step ref="sierpinski_triangle" iter="4"/>
+
+        </system>
+
+
+        <system id="sys_tapis">
+
+            <base ref="square"/>
+            <step ref="sierpinski_carpet" iter="4"/>
+
+        </system>
+
+
+        <system id="sys_penta">
+
+            <base ref="pentagon"/>
+            <step ref="sierpinski_pentagon" iter="4"/>
+
+        </system>
+
+
+        <system id="sys_spirale_tri">
+
+            <base ref="triangle"/>
+            <step ref="spiral_triangle" iter="5"/>
+
+        </system>
+
+
+        <system id="sys_spirale_carre">
+
+            <base ref="square"/>
+            <step ref="spiral_square" iter="5"/>
+
+        </system>
+
+
+        <system id="sys_spirale_penta">
+
+            <base ref="pentagon"/>
+            <step ref="spiral_pentagon" iter="5"/>
+
+        </system>
+
+
+        <system id="sys_penta_compose">
+
+            <base ref="pentagon"/>
+            <step ref="sierpinski_pentagon" iter="4"/>
+            <step ref="spiral_pentagon" iter="4"/>
+
+        </system>
+
+
+        <system id="sys_flocon">
+
+            <base ref="hexagon"/>
+            <step ref="flocon" iter="4"/>
+
+        </system>
+
+
+        <system id="sys_pi">
+
+            <base ref="square"/>
+            <step ref="pi" iter="3"/>
+
+        </system>
+        
+
+    </systems>
+
+</fractale>

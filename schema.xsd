@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Type qui valide un dessin -->
+    <xsd:simpleType name="typeCheminSVG">
+
+        <xsd:restriction base="xsd:string">
+            
+            <!-- On force a avoir un texte qui commence par M (Move to) suivi de 2 nombres pour X et Y, puis L (Line to) avec au moins 2 coordonnées et z pour fermer la forme -->
+            <xsd:pattern value="M( -?[\d\.]+){2} L( -?[\d\.]+){2,} z"/>
+            
+        </xsd:restriction>
+
+    </xsd:simpleType>
+    
+
+    <!-- Balise principale d'une fractale -->
+    <xsd:element name="fractale">
+
+        <!-- Le type de la fractale est composé des formes, les transformations et systeme (l'action de la transformation sur la forme) -->
+        <xsd:complexType>
+
+            <xsd:sequence>
+                
+                <xsd:element ref="formes"/>
+                <xsd:element ref="transformations"/>
+                <xsd:element ref="systems"/>
+
+            </xsd:sequence>
+
+        </xsd:complexType>
+
+
+        <!-- Pour garantir que le nom de la forme soit unique -->
+        <xsd:key name="keyForme">
+
+            <xsd:selector xpath="formes/forme"/>
+            <xsd:field xpath="@id"/>
+
+        </xsd:key>
+
+
+        <!-- Pour garantir que chaque transformation ait un nom unique-->
+        <xsd:key name="keyTransfo">
+
+            <xsd:selector xpath="transformations/ensemble"/>
+            <xsd:field xpath="@id"/>
+
+        </xsd:key>
+
+
+        <!-- Pour garantir que que la valeur donnée existe bien dans la liste de key-->
+        <xsd:keyref name="refSystemeForme" refer="keyForme">
+
+            <xsd:selector xpath="systems/system/base"/>
+            <xsd:field xpath="@ref"/>
+
+        </xsd:keyref>
+
+
+        <!-- Pour garantir que la valeur donnée existe bien dans la liste des transformations-->
+        <xsd:keyref name="refSystemeTransfo" refer="keyTransfo">
+            <xsd:selector xpath="systems/system/step"/>
+            <xsd:field xpath="@ref"/>
+        </xsd:keyref>
+    </xsd:element>
+
+
+    <!-- Définition de ce qu'est formes (pour le type fractale) -->
+    <xsd:element name="formes">
+
+        <xsd:complexType>
+
+            <xsd:sequence>
+
+            <!-- On peut avoir un nombre quelconque forme -->
+            <xsd:element name="forme" maxOccurs="unbounded">
+
+
+                    <!-- On défini ce qu'est UNE forme, un id et un attribut path qui contient l'instruction (d contient les données du chemin SVG, l'instruction) -->
+                    <xsd:complexType>
+                        
+                        <xsd:sequence>
+
+                            <xsd:element name="path">
+
+                                <xsd:complexType>
+
+                                    <xsd:attribute name="d" type="typeCheminSVG" use="required"/>
+
+                                </xsd:complexType>
+
+                            </xsd:element>
+
+                        </xsd:sequence>
+
+                        <xsd:attribute name="id" type="xsd:ID" use="required"/>
+
+                    </xsd:complexType>
+
+                </xsd:element>
+
+            </xsd:sequence>
+
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <!-- Définition de ce qu'est transformations (pour le type fractale) -->
+    <xsd:element name="transformations">
+
+        <xsd:complexType>
+
+            <xsd:sequence>
+
+                <!-- On peut avoir un nombre quelconque forme -->
+                <xsd:element name="ensemble" maxOccurs="unbounded">
+
+                    <!-- On défini ce qu'est UNE transformation, constitué de plusieurs scale, translate et un id -->
+                    <xsd:complexType>
+                        
+                        <xsd:sequence>
+                            
+                            <xsd:element name="transformation" maxOccurs="unbounded">
+
+                                <xsd:complexType>
+
+                                    <!-- On peut avoir autant de rotation, scale et de translate dans une forme (choice) -->
+                                    <xsd:choice maxOccurs="unbounded">
+
+                                        <!-- Représentation d'un élement rotation avec l'angle qu'elle prends -->
+                                        <xsd:element name="rotate">
+
+                                                <xsd:complexType>
+
+                                                    <xsd:attribute name="angle" type="xsd:decimal" use="required"/>
+
+                                                </xsd:complexType>
+
+                                            </xsd:element>
+
+                                        <!-- Représentation d'un élement scale avec les dimentions x et y pour changer la forme -->
+                                        <xsd:element name="scale">
+
+                                            <xsd:complexType>
+
+                                                <xsd:attribute name="sx" type="xsd:decimal" use="required"/>
+                                                <xsd:attribute name="sy" type="xsd:decimal" use="required"/>
+
+                                            </xsd:complexType>
+
+                                        </xsd:element>
+
+                                        <!-- Représentaion d'un élement translate qui prend des coordonnées x et y pour faire déplacer -->
+                                        <xsd:element name="translate">
+
+                                            <xsd:complexType>
+
+                                                <xsd:attribute name="tx" type="xsd:decimal" use="required"/>
+                                                <xsd:attribute name="ty" type="xsd:decimal" use="required"/>
+
+                                            </xsd:complexType>
+
+                                        </xsd:element>
+
+                                    </xsd:choice>
+
+                                </xsd:complexType>
+
+                            </xsd:element>
+
+                        </xsd:sequence>
+
+                        <!-- Chaque transformation est unique et garde un id-->
+                        <xsd:attribute name="id" type="xsd:ID" use="required"/>
+
+                    </xsd:complexType>
+
+                </xsd:element>
+
+            </xsd:sequence>
+
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <!-- Définition de ce qu'est combinaison Forme et l'Action sur la Forme (pour le type fractale) -->
+    <xsd:element name="systems">
+
+        <xsd:complexType>
+
+            <xsd:sequence>
+
+            <!-- L'élément systeme représente une fractale spécifique et on peut représenter autant de fractale qu'on veut -->
+            <xsd:element name="system" maxOccurs="unbounded">
+
+                    <xsd:complexType>
+
+                        <xsd:sequence>
+
+                            <xsd:element name="base">
+                                <xsd:complexType>
+                                    <!-- Pointeur qui contient l'id de la transformation et qui est surveillé par keyRef (défini en haut)-->
+                                    <xsd:attribute name="ref" type="xsd:string" use="required"/>
+                                </xsd:complexType>
+                            </xsd:element>
+                            
+                            <!-- transfoRef represente l'application d'une transformation, c'est maxOccurs="unbounded car on peut appliquer plusieurs transformations sur le la meme forme -->
+                            <xsd:element name="step" maxOccurs="unbounded">
+
+                                <xsd:complexType>
+                                    
+                                    <!-- Pointeur qui contient l'id de la transformation et qui est surveillé par keyRef (défini en haut)-->
+                                    <xsd:attribute name="ref" type="xsd:string" use="required"/>
+                                    <xsd:attribute name="iter" type="xsd:nonNegativeInteger" use="required"/>
+
+                                </xsd:complexType>
+
+                            </xsd:element>
+
+                        </xsd:sequence>
+
+
+                        <!-- On donne un id et un nom unique pour cette combinaison de forme et de transformation -->
+                        <xsd:attribute name="id" type="xsd:ID" use="required"/>
+
+                    </xsd:complexType>
+
+                </xsd:element>
+
+            </xsd:sequence>
+
+        </xsd:complexType>
+
+    </xsd:element>
+
+</xsd:schema>
